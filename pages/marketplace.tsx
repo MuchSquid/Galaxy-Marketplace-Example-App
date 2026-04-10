@@ -28,9 +28,14 @@ export default function Marketplace() {
 {/* Step 1 code block */}
 
   const LDClient = useLDClient();
-  const { storeAttentionCallout, featNewMenu} = useFlags();
+  // Flag key in LD: new-menu-features → camelCase in React SDK: newMenuFeatures
+  const { storeAttentionCallout, newMenuFeatures } = useFlags();
 
-  console.log("[LD] featNewMenu:", featNewMenu);
+  const showNewMenuBadges =
+    newMenuFeatures === true ||
+    newMenuFeatures === "Mostrar nuevo menú";
+
+  console.log("[LD] new-menu-features → newMenuFeatures:", newMenuFeatures);
 
   {/* Step 1 code block */}
 
@@ -313,7 +318,7 @@ export default function Marketplace() {
                     />
                   </div>
                   
-                  {featNewMenu && (
+                  {showNewMenuBadges && (
                     <div className="mt-4 sm:mt-6 gap-x-2 gap-y-4 sm:gap-y-0 grid grid-cols-3 sm:flex sm:grid-cols-0  ">
                       <Badge className="text-lg border-2 bg-transparent border-gray-500 text-ldlightgray">
                         Accessories
@@ -443,3 +448,5 @@ export default function Marketplace() {
     </>
   );
 }
+
+
